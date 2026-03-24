@@ -1,0 +1,39 @@
+{
+  "cities": [
+    {
+      "id": 1,
+      "name": "Moscow",
+      "coordinates": {
+        "x": 37.6,
+        "y": 55.7
+      },
+      "creationDate": "2026-03-09",
+      "area": 2561,
+      "population": 12000000,
+      "metersAboveSeaLevel": 156.5,
+      "climate": "MONSOON",
+      "government": "NOOCRACY",
+      "standardOfLiving": "HIGH",
+      "governor": {
+        "name": "Ivan",
+        "age": 45
+      }
+    },
+    {
+      "id": 2,
+      "name": "St.Petersburg",
+      "coordinates": {
+        "x": 30.3,
+        "y": 59.9
+      },
+      "creationDate": "2026-03-09",
+      "area": 1439,
+      "population": 5000000,
+      "metersAboveSeaLevel": 3.0,
+      "climate": "TUNDRA",
+      "government": "ANARCHY",
+      "standardOfLiving": "MEDIUM",
+      "governor": null
+    }
+  ]
+}
