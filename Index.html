@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №1</title>
+    <style>
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #fdf8f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+        }
+
+        #header {
+            color: #4A0015;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        #header .student-info {
+            font-family: fantasy; 
+            font-size: 24px;      
+            color: #800020;       
+        }
+
+        #header > h1 {
+            border-bottom: 2px solid #800020;
+            padding-bottom: 10px;
+        }
+
+        #header .variant-highlight {
+            color: #c03030;
+            font-weight: bold;
+        }
+
+        form {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(128, 0, 32, 0.1);
+            max-width: 500px;
+            margin: 0 auto 30px auto;
+        }
+
+        fieldset {
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            margin-top: 5%;
+            margin-bottom: 5%;
+            padding: 2%;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: white;
+            color: #333;
+            font-size: 16px;
+        }
+
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #800020;
+            box-shadow: 0 0 3px rgba(128, 0, 32, 0.4);
+        }
+
+        button[type="submit"] {
+            width: 100%;
+            margin-top: 5%;
+            margin-bottom: 5%;
+            padding: 2%;
+            box-sizing: border-box;
+            border: none;
+            border-radius: 4px;
+            background-color: #800020;
+            color: white;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.2s ease;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #5C0018;
+        }
+
+        .graph-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        #graph {
+            border: 1px solid #555;
+            background: white;
+        }
+
+        .results-section {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(128, 0, 32, 0.1);
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #800020;
+        }
+
+        .results-header h2 {
+            margin: 0;
+            color: #800020;
+            font-size: 20px;
+        }
+
+        .clear-btn {
+            padding: 8px 16px;
+            background-color: #800020;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s ease;
+        }
+
+        .clear-btn:hover {
+            background-color: #5C0018;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        th {
+            background-color: #e8eaec;
+            color: #333;
+            font-weight: bold;
+        }
+
+        tbody tr:hover {
+            background-color: #f9f9f9;
+        }
+
+        #error-message {
+            color: #c03030;
+            text-align: center;
+            display: none;
+            max-width: 500px;
+            margin: 0 auto 20px auto;
+            padding: 10px;
+            background: #fff5f5;
+            border-radius: 4px;
+            border: 1px solid #f5c6cb;
+        }
+
+        .x-btn {
+            padding: 6px 10px;
+            margin: 2px;
+            border: 2px solid #800020;
+            background: #e8eaec;
+            color: #333;
+            cursor: pointer;
+            border-radius: 4px;
+            font-size: 13px;
+            width: auto;
+            display: inline-block;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+        }
+
+        .x-btn:hover {
+            background: #d8d0d0;
+            border-color: #5C0018;
+        }
+
+        .x-btn.active {
+            background: #800020;
+            color: white;
+            border-color: #800020;
+            font-weight: bold;
+        }
+
+        #x-buttons {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: center;
+            gap: 3px;
+            overflow-x: auto;
+            padding-bottom: 5px;
+        }
+
+        #x-buttons::-webkit-scrollbar {
+            height: 4px;
+        }
+
+        #x-buttons::-webkit-scrollbar-thumb {
+            background: #800020;
+            border-radius: 2px;
+        }
+
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            color: #800020;
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        .modal-content p {
+            margin: 20px 0;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.2s;
+        }
+
+        .cancel-btn {
+            background: #e8eaec;
+            color: #333;
+        }
+
+        .cancel-btn:hover {
+            background: #d0d4d8;
+        }
+
+        .confirm-btn {
+            background: #800020;
+            color: white;
+        }
+
+        .confirm-btn:hover {
+            background: #5C0018;
+        }
+                /* Панель хранилища */
+        .storage-section {
+            max-width: 900px;
+            margin: 0 auto 20px auto;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(128, 0, 32, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        #storage-status {
+            color: #4A0015;
+            font-size: 14px;
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .storage-buttons {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .storage-btn {
+            padding: 8px 14px;
+            background-color: #800020;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: background-color 0.2s ease;
+        }
+
+        .storage-btn:hover {
+            background-color: #5C0018;
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <h1>Лабораторная работа №1</h1>
+        <div class="student-info">
+            <p>Студент: Фетисов Максим Владимирович</p>
+            <p>Группа: P3210</p>
+            <p>Вариант: <span class="variant-highlight">12667</span></p>
+        </div>
+    </header>
+
+    <main>
+        <section>
+            <form id="check-form">
+                <fieldset id="x-buttons">
+                    <legend>Выберите значение X:</legend>
+                    <button type="button" class="x-btn" data-value="-3">-3</button>
+                    <button type="button" class="x-btn" data-value="-2">-2</button>
+                    <button type="button" class="x-btn" data-value="-1">-1</button>
+                    <button type="button" class="x-btn" data-value="0">0</button>
+                    <button type="button" class="x-btn" data-value="1">1</button>
+                    <button type="button" class="x-btn" data-value="2">2</button>
+                    <button type="button" class="x-btn" data-value="3">3</button>
+                    <button type="button" class="x-btn" data-value="4">4</button>
+                    <button type="button" class="x-btn" data-value="5">5</button>
+                </fieldset>
+
+                <input type="hidden" id="x-value" name="x">
+                
+                <label for="y-input">Координата Y (строго от -3 до 3, не включая границы):</label>
+                <input type="text" id="y-input" name="y" placeholder="Например, 1.5 или -2,5" maxlength="17">
+
+                <label for="r-input">Радиус R (строго от 1 до 4, не включая границы):</label>
+                <input type="text" id="r-input" name="r" placeholder="Например, 2.5" maxlength="17">
+
+                <button type="submit">Проверить попадание</button>
+            </form>
+
+            <div id="error-message"></div>
+        </section>
+
+        <section class="graph-container">
+            <canvas id="graph" width="400" height="400"></canvas>
+        </section>
+        <section class="storage-section">
+            <span id="storage-status"></span>
+            <div class="storage-buttons">
+                <button type="button" id="connect-file-btn" class="storage-btn">Подключить файл</button>
+                <button type="button" id="create-file-btn" class="storage-btn">Создать файл</button>
+                <button type="button" id="export-btn" class="storage-btn" hidden>Скачать JSON</button>
+                <button type="button" id="import-btn" class="storage-btn" hidden>Загрузить JSON</button>
+                <input type="file" id="import-input" accept=".json,application/json" hidden>
+            </div>
+        </section>
+
+        <section class="results-section">
+            <div class="results-header">
+                <h2>Результаты проверок</h2>
+                <button type="button" id="clear-btn" class="clear-btn">Очистить все результаты</button>
+            </div>
+            
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th>X</th>
+                        <th>Y</th>
+                        <th>R</th>
+                        <th>Время проверки</th>
+                        <th>Результат</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body">
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Подтверждение действия</h3>
+            <p id="modal-message">Вы уверены?</p>
+            <div class="modal-buttons">
+                <button type="button" id="modal-cancel" class="modal-btn cancel-btn">Отмена</button>
+                <button type="button" id="modal-ok" class="modal-btn confirm-btn">Подтвердить</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="lab1.js" defer></script>
+</body>
+</html>
