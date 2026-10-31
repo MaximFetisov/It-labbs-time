@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №2 — проверка попадания точки</title>
+    <style>
+        :root {
+            --wine: #800020;
+            --wine-dark: #4a0015;
+            --wine-light: rgba(128, 0, 32, 0.12);
+            --paper: rgba(255, 255, 255, 0.85);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+            color: var(--wine-dark);
+            background: linear-gradient(160deg, #fdf6f7 0%, #f7e9ec 60%, #f3dfe4 100%);
+            padding-bottom: 40px;
+        }
+
+        #header {
+            max-width: 960px;
+            margin: 24px auto 28px auto;
+            padding: 22px 32px;
+            text-align: center;
+            background: var(--paper);
+            backdrop-filter: blur(6px);
+            border: 1px solid var(--wine-light);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(128, 0, 32, 0.08);
+        }
+
+        #header > h1 {
+            margin: 0 0 10px 0;
+            font-size: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        #header .student-info {
+            margin: 0;
+            padding-bottom: 14px;
+            border-bottom: 2px solid var(--wine);
+            font-family: fantasy;
+            font-size: 19px;
+            color: var(--wine);
+        }
+
+        .variant-highlight { color: #d4003c; font-weight: 800; }
+
+        .layout {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--paper);
+            backdrop-filter: blur(6px);
+            border: 1px solid var(--wine-light);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(128, 0, 32, 0.08);
+            padding: 26px 28px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 40px rgba(128, 0, 32, 0.13);
+        }
+
+        .field { margin-bottom: 18px; }
+
+        .field label,
+        .field legend {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .hint { font-weight: 400; color: #8a6a72; font-size: 13px; }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 11px 14px;
+            font-size: 15px;
+            color: var(--wine-dark);
+            background: #fff;
+            border: 1.5px solid rgba(128, 0, 32, 0.25);
+            border-radius: 10px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+
+        input[type="text"]:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--wine);
+            box-shadow: 0 0 0 3px var(--wine-light);
+        }
+        input[type="file"]::file-selector-button {
+            margin-right: 12px;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 8px;
+            background: linear-gradient(135deg, #800020, #a3123f);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: filter 0.2s;
+        }
+
+        input[type="file"]::file-selector-button:hover {
+            filter: brightness(1.12);
+        }
+
+        select {
+            appearance: none;
+            -webkit-appearance: none;
+            padding-right: 42px;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23800020' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            cursor: pointer;
+        }
+
+        fieldset {
+            border: 1.5px solid rgba(128, 0, 32, 0.2);
+            border-radius: 12px;
+            padding: 14px 16px 16px 16px;
+        }
+
+        legend { padding: 0 6px; color: var(--wine); }
+
+        .chips { display: flex; gap: 10px; flex-wrap: wrap; }
+
+        .chip { position: relative; }
+
+        .chip input {
+            position: absolute;
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .chip span {
+            display: inline-block;
+            padding: 8px 18px;
+            background: #fff;
+            border: 1.5px solid rgba(128, 0, 32, 0.3);
+            border-radius: 999px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.18s ease;
+        }
+
+        .chip span:hover {
+            border-color: var(--wine);
+            transform: translateY(-1px);
+        }
+
+        .chip input:checked + span {
+            background: var(--wine);
+            border-color: var(--wine);
+            color: #fff;
+            box-shadow: 0 4px 14px rgba(128, 0, 32, 0.35);
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 13px;
+            border: none;
+            border-radius: 10px;
+            background: linear-gradient(135deg, #800020, #a3123f);
+            color: #fff;
+            font-size: 15px;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            cursor: pointer;
+            transition: filter 0.2s, transform 0.1s, box-shadow 0.2s;
+        }
+
+        .btn-primary:hover {
+            filter: brightness(1.12);
+            box-shadow: 0 8px 20px rgba(128, 0, 32, 0.3);
+        }
+
+        .btn-primary:active { transform: translateY(1px); }
+
+        .error-banner {
+            display: none;
+            margin-bottom: 16px;
+            padding: 11px 14px;
+            background: #fdecea;
+            border: 1px solid #f5c6cb;
+            border-radius: 10px;
+            color: #842029;
+            font-size: 14px;
+        }
+
+        .canvas-card { text-align: center; }
+
+        canvas {
+            display: inline-block;
+            background: #fff;
+            border: 1.5px solid rgba(128, 0, 32, 0.35);
+            border-radius: 12px;
+        }
+
+        .results-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            margin-bottom: 16px;
+            flex-wrap: wrap;
+        }
+
+        .results-header h2 {
+            margin: 0;
+            font-size: 19px;
+            position: relative;
+            padding-bottom: 6px;
+        }
+
+        .results-header h2::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 46px;
+            height: 3px;
+            border-radius: 2px;
+            background: var(--wine);
+        }
+
+        .btn-danger {
+            padding: 9px 16px;
+            border: none;
+            border-radius: 9px;
+            background: linear-gradient(135deg, #800020, #a3123f);
+            color: #fff;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: filter 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-danger:hover {
+            filter: brightness(1.12);
+            box-shadow: 0 6px 16px rgba(128, 0, 32, 0.3);
+        }
+
+        .table-wrap { overflow-x: auto; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        thead th {
+            padding: 11px 10px;
+            text-align: center;
+            font-weight: 700;
+            color: var(--wine-dark);
+            background: linear-gradient(135deg, rgba(128, 0, 32, 0.09), rgba(128, 0, 32, 0.04));
+            border-bottom: 2px solid rgba(128, 0, 32, 0.3);
+            white-space: nowrap;
+        }
+
+        tbody td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid rgba(128, 0, 32, 0.1);
+        }
+
+        tbody tr:nth-child(even) { background: rgba(128, 0, 32, 0.03); }
+        tbody tr:hover { background: rgba(128, 0, 32, 0.06); }
+
+        #results-body tr { cursor: pointer; }
+        #results-body tr.selected,
+        #results-body tr.selected:hover {
+            background: rgba(128, 0, 32, 0.14);
+            box-shadow: inset 4px 0 0 #800020;
+        }
+
+        .dataset-row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+            align-items: center;
+        }
+
+        .dataset-row select,
+        .dataset-row input[type="text"],
+        .dataset-row input[type="file"] { flex: 1; }
+
+        .dataset-row .btn-primary,
+        .dataset-row .btn-ghost,
+        .dataset-row .btn-danger {
+            width: auto;
+            padding: 11px 18px;
+            white-space: nowrap;
+            margin: 0;
+        }
+
+        .btn-ghost {
+            padding: 9px 16px;
+            background: transparent;
+            border: 1.5px solid rgba(128, 0, 32, 0.35);
+            border-radius: 9px;
+            color: var(--wine);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-ghost:hover { background: var(--wine-light); }
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(40, 0, 10, 0.45);
+            backdrop-filter: blur(3px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.2s ease, visibility 0.2s;
+        }
+
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+
+        .modal {
+            width: min(420px, 90%);
+            padding: 26px 28px;
+            background: #fff;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            transform: translateY(12px) scale(0.97);
+            transition: transform 0.2s ease;
+        }
+
+        .modal-overlay.active .modal { transform: none; }
+
+        .modal h3 { margin: 0 0 10px 0; font-size: 18px; }
+        .modal p  { margin: 0; color: #6d5a60; font-size: 14px; }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .card { padding: 20px; }
+            .results-header { flex-direction: column; align-items: flex-start; }
+            .dataset-row { flex-direction: column; align-items: stretch; }
+        }
+    </style>
+</head>
+<body>
+
+<header id="header">
+    <h1>Лабораторная работа №2</h1>
+    <p class="student-info">
+        Фетисов Максим Владимирович · P3210 · вариант <span class="variant-highlight">792</span>
+    </p>
+</header>
+
+<main class="layout">
+
+    <!-- Датасеты -->
+    <section class="card">
+        <div class="results-header">
+            <h2>Датасеты</h2>
+            <span id="dataset-status" class="hint">датасет не выбран</span>
+        </div>
+
+        <div class="dataset-row">
+            <select id="dataset-select">
+                <option value="" selected disabled>— не выбран —</option>
+            </select>
+            <button type="button" id="dataset-refresh" class="btn-ghost">Обновить</button>
+        </div>
+
+        <div class="dataset-row">
+            <input type="text" id="dataset-name" placeholder="Имя нового датасета: латиница, цифры, - и _" autocomplete="off">
+            <button type="button" id="dataset-create" class="btn-primary">Создать</button>
+        </div>
+
+        <div class="dataset-row">
+            <input type="file" id="import-file" accept=".csv">
+            <button type="button" id="import-btn" class="btn-ghost">Импортировать CSV</button>
+            <button type="button" id="export-btn" class="btn-ghost">Скачать CSV</button>
+        </div>
+
+        <div class="dataset-row">
+            <label class="chip"><input type="radio" name="import-mode" value="new" checked><span>Новый датасет</span></label>
+            <label class="chip"><input type="radio" name="import-mode" value="append"><span>Дописать в активный</span></label>
+            <span id="import-report" class="hint"></span>
+        </div>
+    </section>
+
+    <!-- Форма -->
+    <section class="card">
+        <form id="check-form">
+            <div class="field">
+                <label for="x-input">Координата X <span class="hint">(строго от -5 до 3, не включая границы)</span></label>
+                <input type="text" id="x-input" placeholder="Например, 1.5 или -2.5" autocomplete="off">
+            </div>
+
+            <div class="field">
+                <label for="y-select">Координата Y:</label>
+                <select id="y-select">
+                    <option value="" selected disabled>Выберите значение</option>
+                    <option value="-4">-4</option>
+                    <option value="-3">-3</option>
+                    <option value="-2">-2</option>
+                    <option value="-1">-1</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+            </div>
+
+            <fieldset class="field">
+                <legend>Выберите значение R:</legend>
+                <div class="chips">
+                    <label class="chip"><input type="checkbox" name="r" value="1"><span>1</span></label>
+                    <label class="chip"><input type="checkbox" name="r" value="1.5"><span>1.5</span></label>
+                    <label class="chip"><input type="checkbox" name="r" value="2"><span>2</span></label>
+                    <label class="chip"><input type="checkbox" name="r" value="2.5"><span>2.5</span></label>
+                    <label class="chip"><input type="checkbox" name="r" value="3"><span>3</span></label>
+                </div>
+            </fieldset>
+
+            <div id="error-message" class="error-banner" role="alert"></div>
+
+            <button type="submit" class="btn-primary">Проверить попадание</button>
+        </form>
+    </section>
+
+    <!-- График -->
+    <section class="card canvas-card">
+        <canvas id="graph" width="460" height="460"></canvas>
+    </section>
+
+    <!-- Результаты -->
+    <section class="card">
+        <div class="results-header">
+            <h2>Результаты проверок</h2>
+            <button type="button" id="clear-btn" class="btn-danger">Очистить все результаты</button>
+        </div>
+        <div class="table-wrap">
+            <table id="results-table">
+                <thead>
+                <tr>
+                    <th>X</th>
+                    <th>Y</th>
+                    <th>R</th>
+                    <th>Время проверки</th>
+                    <th>Время работы скрипта</th>
+                    <th>Результат</th>
+                </tr>
+                </thead>
+                <tbody id="results-body"></tbody>
+            </table>
+        </div>
+    </section>
+
+</main>
+
+<!-- Модальное окно -->
+<div class="modal-overlay" id="confirm-modal">
+    <div class="modal">
+        <h3>Подтверждение действия</h3>
+        <p id="modal-message">Вы уверены?</p>
+        <div class="modal-actions">
+            <button type="button" id="modal-cancel" class="btn-ghost">Отмена</button>
+            <button type="button" id="modal-ok" class="btn-danger">Подтвердить</button>
+        </div>
+    </div>
+</div>
+
+<script src="lab2.js" defer></script>
+</body>
+</html>

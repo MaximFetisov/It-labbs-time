@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Лабораторная работа №2</title>
+    <style>
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #fdf8f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+#header {
+    color: #4A0015;
+    text-align: center;
+    max-width: 900px;
+    margin: 0 auto 30px auto;
+    padding: 20px 30px;
+    background: rgba(128, 0, 32, 0.07);  
+    border-radius: 10px;
+}
+
+#header .student-info {
+    font-family: fantasy;
+    font-size: 20px;
+    color: #800020;
+    margin: 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid #800020;     
+}
+
+#header > h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+#header .variant-highlight {
+    color: #c03030;
+    font-weight: bold;
+}
+
+
+
+form {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(128, 0, 32, 0.1);
+    max-width: 500px;
+    margin: 0 auto 30px auto;
+    border: 2px solid #d8c6cc;
+}
+
+fieldset {
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+button[type="submit"] {
+    width: 100%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding: 2%;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+    background-color: #800020;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #5C0018;
+}
+
+
+.graph-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 30px;
+}
+
+#graph {
+    border: 2px solid #800020;     
+    border-radius: 10px;            
+    background: white;
+    box-shadow: 0 2px 10px rgba(128, 0, 32, 0.1);  
+}
+
+
+.results-section {
+    max-width: 900px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(128, 0, 32, 0.1);
+    border: 2px solid #800020; 
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #800020;
+}
+
+.results-header h2 {
+    margin: 0;
+    color: #800020;
+    font-size: 20px;
+}
+
+.clear-btn {
+    padding: 8px 16px;
+    background-color: #800020;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s ease;
+}
+
+.clear-btn:hover {
+    background-color: #5C0018;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #e8eaec;
+    color: #333;
+    font-weight: bold;
+}
+
+tbody tr:hover {
+    background-color: #f9f9f9;
+}
+
+/* ========== СООБЩЕНИЕ ОБ ОШИБКЕ ========== */
+
+#error-message {
+    color: #c03030;
+    text-align: center;
+    display: none;
+    max-width: 500px;
+    margin: 0 auto 20px auto;
+    padding: 10px;
+    background: #fff5f5;
+    border-radius: 4px;
+    border: 1px solid #f5c6cb;
+}
+
+/* ========== МОДАЛЬНОЕ ОКНО ========== */
+
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    max-width: 400px;
+    width: 90%;
+    text-align: center;
+}
+
+.modal-content h3 {
+    color: #800020;
+    margin-top: 0;
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    margin: 20px 0;
+    font-size: 16px;
+    color: #333;
+}
+
+.modal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.modal-btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.cancel-btn {
+    background: #e8eaec;
+    color: #333;
+}
+
+.cancel-btn:hover {
+    background: #d0d4d8;
+}
+
+.confirm-btn {
+    background: #800020;
+    color: white;
+}
+
+.confirm-btn:hover {
+    background: #5C0018;
+}
+
+
+input[type="text"],
+select {
+    width: 100%;
+    margin-top: 5%;               /* проценты — требование задания */
+    margin-bottom: 5%;
+    padding: 2%;
+    box-sizing: border-box;
+    border: 1px solid #d8c6cc;
+    border-radius: 4px;
+    background-color: #fff;
+    color: #333;
+    font-size: 16px;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+input[type="text"]:hover,
+select:hover {
+    border-color: #b98a97;
+}
+
+input[type="text"]:focus,
+select:focus {
+    outline: none;
+    border-color: #800020;
+    box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.15);
+}
+
+input[type="text"]::placeholder {
+    color: #a9969c;
+}
+
+select {
+    background-color: #f7f3f4;    
+    cursor: pointer;
+    padding-right: 12%;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+select:hover {
+    background-color: #f1e7ea;
+}
+
+select:focus {
+    background-color: #fff;       /* в фокусе белеет — видно активность */
+}
+
+/* Пункты списка (для браузеров без base-select) */
+select option {
+    background-color: #fff;
+    color: #333;
+}
+
+/* ========== ЧЕКБОКСЫ R И ЧИПСЫ ========== */
+
+.r-option {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin: 3px 6px 3px 0;
+    padding: 8px 14px;
+    border: 2px solid #d8c6cc;
+    border-radius: 6px;
+    background: #f7f3f4;
+    font-weight: normal;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease;
+}
+
+.r-option:hover {
+    border-color: #b98a97;
+}
+
+.r-option input[type="checkbox"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    border: 2px solid #800020;
+    border-radius: 4px;
+    background-color: #fff;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.r-option input[type="checkbox"]:hover {
+    background-color: #f7eef1;
+}
+
+.r-option input[type="checkbox"]:checked {
+    background-color: #800020;
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 10'><path d='M1 5l4 4 6-8' fill='none' stroke='white' stroke-width='2' stroke-linecap='round'/></svg>");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 12px;
+}
+
+.r-option input[type="checkbox"]:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(128, 0, 32, 0.2);
+}
+
+/* Выбранный чипс заливается бордовым */
+.r-option:has(input:checked) {
+    border-color: #800020;
+    background: #800020;
+    color: white;
+    font-weight: bold;
+}
+
+/* Квадратик на бордовом чипсе — прозрачный с белой рамкой */
+.r-option:has(input:checked) input[type="checkbox"] {
+    border-color: white;
+    background-color: transparent;
+}
+
+/* ========== КАСТОМИЗИРУЕМЫЙ SELECT (Chrome/Edge 135+) ========== */
+/* Идёт последним, чтобы перебивать правила выше по каскаду.
+   В браузерах без поддержки base-select блок мягко игнорируется. */
+
+select {
+    appearance: base-select;
+}
+
+/* Выпадающий контейнер */
+::picker(select) {
+    background: #fff;
+    border: 1px solid #d8c6cc;
+    border-radius: 6px;
+    padding: 4px;
+    box-shadow: 0 4px 12px rgba(128, 0, 32, 0.15);
+}
+
+/* Пункты списка */
+select option {
+    padding: 8px 12px;
+    border-radius: 4px;
+    background: transparent;
+    color: #333;
+}
+
+/* Наведение — бордовое вместо системного синего.
+   Градиентная запись работает и в base-select, и в Firefox */
+select option:hover {
+    background: #800020 linear-gradient(0deg, #800020, #800020);
+    color: #fff;
+}
+
+/* Текущий выбранный пункт в открытом списке */
+select option:checked {
+    background: #f1e7ea linear-gradient(0deg, #f1e7ea, #f1e7ea);
+    color: #4A0015;
+    font-weight: bold;
+}
+
+/* Если в Chrome вдруг появятся ДВЕ стрелки (своя SVG + системная),
+   раскомментируй строку ниже, чтобы убрать системную: */
+select::after { 
+    content: none; 
+} 
+    </style>
+</head>
+<body>
+
+<header id="header">
+    <h1>Лабораторная работа №2</h1>
+    <p class="student-info">
+        Фетисов Максим Владимирович · P3210 · вариант <span class="variant-highlight">792</span>
+    </p>
+</header>
+
+    <main>
+        <section>
+            <form id="check-form">
+                <label for="x-input">Координата X (строго от -5 до 3, не включая границы):</label>
+                <input type="text" id="x-input" name="x" placeholder="Например, 1.5 или -2,5" maxlength="17">
+                
+                <label for="y-select">Координата Y:</label>
+                <select id="y-select" name="y">
+                    <option value="" disabled selected>Выберите значение</option>
+                    <option value="-4">-4</option>
+                    <option value="-3">-3</option>
+                    <option value="-2">-2</option>
+                    <option value="-1">-1</option>
+                    <option value="0">0</option>
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                </select>
+
+               <fieldset>
+                    <legend>Выберите значение R:</legend>
+                    <label class="r-option"><input type="checkbox" name="r" value="1"> 1</label>
+                    <label class="r-option"><input type="checkbox" name="r" value="1.5"> 1.5</label>
+                    <label class="r-option"><input type="checkbox" name="r" value="2"> 2</label>
+                    <label class="r-option"><input type="checkbox" name="r" value="2.5"> 2.5</label>
+                    <label class="r-option"><input type="checkbox" name="r" value="3"> 3</label>
+                </fieldset>
+                <button type="submit">Проверить попадание</button>
+            </form>
+
+            <div id="error-message"></div>
+        </section>
+
+        <section class="graph-container">
+            <canvas id="graph" width="400" height="400"></canvas>
+        </section>
+
+        <section class="results-section">
+            <div class="results-header">
+                <h2>Результаты проверок</h2>
+                <button type="button" id="clear-btn" class="clear-btn">Очистить все результаты</button>
+            </div>
+            
+            <table id="results-table">
+                <thead>
+                    <tr>
+                        <th>X</th>
+                        <th>Y</th>
+                        <th>R</th>
+                        <th>Время проверки</th>
+                        <th>Результат</th>
+                    </tr>
+                </thead>
+                <tbody id="results-body">
+                </tbody>
+            </table>
+        </section>
+    </main>
+
+    <div id="confirm-modal" class="modal-overlay">
+        <div class="modal-content">
+            <h3>Подтверждение действия</h3>
+            <p id="modal-message">Вы уверены?</p>
+            <div class="modal-buttons">
+                <button type="button" id="modal-cancel" class="modal-btn cancel-btn">Отмена</button>
+                <button type="button" id="modal-ok" class="modal-btn confirm-btn">Подтвердить</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="lab2.js" defer></script>
+</body>
+</html>

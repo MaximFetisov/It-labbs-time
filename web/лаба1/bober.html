@@ -1,0 +1,1036 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>⚠️ НАЦІОНАЛЬНИЙ АНТИБОБРОВИЙ КОМІТЕТ ⚠️</title>
+    <style>
+        @import url('https://cdn.jsdelivr.net/fontsource/fonts/press-start-2p@latest/latin-400-normal.css');
+        @import url('https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.css');
+        @import url('https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-700-normal.css');
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --danger: #dc2626;
+            --warning: #f59e0b;
+            --dark: #1a1a2e;
+            --darker: #0f0f1a;
+            --accent: #e11d48;
+            --brown: #92400e;
+            --beaver: #b45309;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--darker);
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        /* Alert Banner */
+        .alert-banner {
+            background: repeating-linear-gradient(
+                45deg,
+                var(--danger),
+                var(--danger) 10px,
+                #991b1b 10px,
+                #991b1b 20px
+            );
+            padding: 8px;
+            text-align: center;
+            animation: scrollBanner 15s linear infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .alert-banner span {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 11px;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            white-space: nowrap;
+            display: inline-block;
+            animation: marquee 20s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(100vw); }
+            100% { transform: translateX(-100%); }
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(180deg, var(--dark) 0%, var(--darker) 100%);
+            border-bottom: 3px solid var(--danger);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23dc2626' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            pointer-events: none;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .shield {
+            width: 80px;
+            height: 90px;
+            position: relative;
+        }
+
+        .shield svg {
+            width: 100%;
+            height: 100%;
+            filter: drop-shadow(0 0 10px rgba(220, 38, 38, 0.5));
+        }
+
+        .header h1 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: clamp(14px, 3vw, 24px);
+            color: var(--danger);
+            text-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+            line-height: 1.6;
+        }
+
+        .header .subtitle {
+            font-size: 14px;
+            color: var(--warning);
+            margin-top: 10px;
+            font-style: italic;
+        }
+
+        .stamp {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            border: 3px solid var(--danger);
+            color: var(--danger);
+            padding: 8px 15px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 9px;
+            transform: rotate(12deg);
+            opacity: 0.8;
+            text-transform: uppercase;
+        }
+
+        /* Stats Bar */
+        .stats-bar {
+            background: var(--dark);
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            border-bottom: 1px solid #333;
+        }
+
+        .stat-item {
+            padding: 20px;
+            text-align: center;
+            border-right: 1px solid #333;
+            transition: background 0.3s;
+        }
+
+        .stat-item:hover {
+            background: rgba(220, 38, 38, 0.1);
+        }
+
+        .stat-number {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 24px;
+            color: var(--danger);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Main Content */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .section-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: clamp(12px, 2.5vw, 18px);
+            color: var(--warning);
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px dashed #333;
+        }
+
+        /* Wanted Posters */
+        .wanted-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 60px;
+        }
+
+        .wanted-card {
+            background: linear-gradient(135deg, #292524 0%, #1c1917 100%);
+            border: 2px solid var(--brown);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            position: relative;
+        }
+
+        .wanted-card:hover {
+            transform: translateY(-5px) rotate(-1deg);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(180, 83, 9, 0.2);
+        }
+
+        .wanted-card::before {
+            content: 'РАЗЫСКИВАЕТСЯ';
+            position: absolute;
+            top: 15px;
+            left: -35px;
+            background: var(--danger);
+            color: white;
+            padding: 5px 40px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 8px;
+            transform: rotate(-45deg);
+            z-index: 10;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .wanted-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            filter: sepia(30%) contrast(1.2);
+            border-bottom: 3px solid var(--brown);
+        }
+
+        .wanted-info {
+            padding: 20px;
+        }
+
+        .wanted-name {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 14px;
+            color: var(--warning);
+            margin-bottom: 10px;
+        }
+
+        .wanted-alias {
+            font-size: 12px;
+            color: #94a3b8;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+
+        .crimes-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .crimes-list li {
+            padding: 5px 0;
+            font-size: 13px;
+            color: #cbd5e1;
+            border-bottom: 1px solid #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .crimes-list li::before {
+            content: '⚠️';
+            font-size: 12px;
+        }
+
+        .danger-level {
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .danger-label {
+            font-size: 11px;
+            color: #94a3b8;
+            text-transform: uppercase;
+        }
+
+        .danger-bar {
+            flex: 1;
+            height: 8px;
+            background: #333;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .danger-fill {
+            height: 100%;
+            border-radius: 4px;
+            transition: width 1s ease;
+        }
+
+        .danger-fill.extreme {
+            background: linear-gradient(90deg, var(--warning), var(--danger));
+            width: 95%;
+        }
+
+        .danger-fill.high {
+            background: linear-gradient(90deg, #f97316, var(--danger));
+            width: 80%;
+        }
+
+        .danger-fill.critical {
+            background: linear-gradient(90deg, var(--danger), #7f1d1d);
+            width: 100%;
+            animation: pulse-bar 1s ease infinite;
+        }
+
+        @keyframes pulse-bar {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* News Section */
+        .news-section {
+            margin-bottom: 60px;
+        }
+
+        .news-card {
+            background: var(--dark);
+            border: 1px solid #333;
+            border-left: 4px solid var(--danger);
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 0 8px 8px 0;
+            transition: border-color 0.3s, transform 0.3s;
+        }
+
+        .news-card:hover {
+            border-left-color: var(--warning);
+            transform: translateX(5px);
+        }
+
+        .news-date {
+            font-size: 11px;
+            color: var(--danger);
+            font-family: 'Press Start 2P', monospace;
+            margin-bottom: 8px;
+        }
+
+        .news-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: #f1f5f9;
+        }
+
+        .news-text {
+            font-size: 14px;
+            color: #94a3b8;
+            line-height: 1.6;
+        }
+
+        /* Facts Section */
+        .facts-section {
+            margin-bottom: 60px;
+        }
+
+        .facts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .fact-card {
+            background: linear-gradient(135deg, rgba(220, 38, 38, 0.1), rgba(245, 158, 11, 0.05));
+            border: 1px solid rgba(220, 38, 38, 0.3);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .fact-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 10px 30px rgba(220, 38, 38, 0.1);
+        }
+
+        .fact-icon {
+            font-size: 40px;
+            margin-bottom: 15px;
+        }
+
+        .fact-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 10px;
+            color: var(--warning);
+            margin-bottom: 10px;
+        }
+
+        .fact-text {
+            font-size: 13px;
+            color: #94a3b8;
+            line-height: 1.5;
+        }
+
+        /* Hotline Section */
+        .hotline-section {
+            background: linear-gradient(135deg, var(--dark), #1e1b4b);
+            border: 2px solid var(--warning);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            margin-bottom: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hotline-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: conic-gradient(from 0deg, transparent, rgba(245, 158, 11, 0.05), transparent, rgba(220, 38, 38, 0.05), transparent);
+            animation: rotate-bg 10s linear infinite;
+        }
+
+        @keyframes rotate-bg {
+            100% { transform: rotate(360deg); }
+        }
+
+        .hotline-section > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hotline-title {
+            font-family: 'Press Start 2P', monospace;
+            font-size: clamp(12px, 2vw, 16px);
+            color: var(--warning);
+            margin-bottom: 15px;
+        }
+
+        .hotline-number {
+            font-family: 'Press Start 2P', monospace;
+            font-size: clamp(20px, 4vw, 36px);
+            color: var(--danger);
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(220, 38, 38, 0.5);
+            animation: blink 2s ease infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .hotline-desc {
+            color: #94a3b8;
+            font-size: 14px;
+            max-width: 500px;
+            margin: 0 auto 20px;
+        }
+
+        .hotline-btn {
+            background: linear-gradient(135deg, var(--danger), #991b1b);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .hotline-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(220, 38, 38, 0.4);
+        }
+
+        .hotline-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Testimonials */
+        .testimonials {
+            margin-bottom: 60px;
+        }
+
+        .testimonial-card {
+            background: var(--dark);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid #333;
+            position: relative;
+        }
+
+        .testimonial-card::before {
+            content: '"';
+            position: absolute;
+            top: 10px;
+            left: 15px;
+            font-size: 60px;
+            color: rgba(220, 38, 38, 0.2);
+            font-family: serif;
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            color: #cbd5e1;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+
+        .testimonial-author {
+            font-size: 12px;
+            color: var(--warning);
+            text-align: right;
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--dark);
+            border-top: 2px solid #333;
+            padding: 30px 20px;
+            text-align: center;
+        }
+
+        .footer-text {
+            font-size: 11px;
+            color: #64748b;
+            line-height: 1.8;
+        }
+
+        .footer-disclaimer {
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            border-radius: 8px;
+            font-size: 12px;
+            color: var(--warning);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Floating Beaver */
+        .floating-beaver {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: var(--beaver);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+            z-index: 100;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        .floating-beaver:hover {
+            transform: scale(1.2) rotate(10deg);
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Modal */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: var(--dark);
+            border: 2px solid var(--danger);
+            border-radius: 16px;
+            padding: 40px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            animation: modalIn 0.3s ease;
+        }
+
+        @keyframes modalIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: none;
+            border: none;
+            color: #94a3b8;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        .modal h3 {
+            font-family: 'Press Start 2P', monospace;
+            font-size: 14px;
+            color: var(--danger);
+            margin-bottom: 20px;
+        }
+
+        .modal p {
+            color: #94a3b8;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .modal .beaver-ascii {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        /* Counter animation */
+        .counter {
+            display: inline-block;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .wanted-grid {
+                grid-template-columns: 1fr;
+            }
+            .stamp {
+                display: none;
+            }
+            .hotline-section {
+                padding: 25px;
+            }
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--darker);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--brown);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Alert Banner -->
+    <div class="alert-banner">
+        <span>⚠️ ВНИМАНИЕ! УРОВЕНЬ БОБРОВОЙ УГРОЗЫ ПОВЫШЕН ДО КРИТИЧЕСКОГО! ВСЕМ ГРАЖДАНАМ РЕКОМЕНДУЕТСЯ НЕ ОСТАВЛЯТЬ ДЕРЕВЬЯ БЕЗ ПРИСМОТРА! ⚠️</span>
+    </div>
+
+    <!-- Header -->
+    <header class="header">
+        <div class="stamp">СОВЕРШЕННО СЕКРЕТНО</div>
+        <div class="logo-container">
+            <div class="shield">
+                <svg viewBox="0 0 80 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M40 5 L75 20 L75 50 Q75 75 40 85 Q5 75 5 50 L5 20 Z" fill="#1a1a2e" stroke="#dc2626" stroke-width="3"/>
+                    <path d="M40 15 L65 27 L65 48 Q65 68 40 76 Q15 68 15 48 L15 27 Z" fill="#0f0f1a" stroke="#f59e0b" stroke-width="1"/>
+                    <text x="40" y="50" text-anchor="middle" fill="#dc2626" font-size="28">🦫</text>
+                    <text x="40" y="70" text-anchor="middle" fill="#f59e0b" font-size="8" font-family="monospace">NABC</text>
+                </svg>
+            </div>
+            <div>
+                <h1>НАЦИОНАЛЬНЫЙ<br>АНТИБОБРОВЫЙ<br>КОМИТЕТ</h1>
+            </div>
+        </div>
+        <p class="subtitle">«Ни одно дерево не будет в безопасности, пока последний бобр не будет пойман»</p>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-item">
+            <span class="stat-number counter" data-target="14892">0</span>
+            <span class="stat-label">Деревьев уничтожено</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number counter" data-target="347">0</span>
+            <span class="stat-label">Плотин построено нелегально</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number counter" data-target="89">0</span>
+            <span class="stat-label">Дорог затоплено</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-number counter" data-target="23">0</span>
+            <span class="stat-label">Бобров в розыске</span>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Wanted Section -->
+        <h2 class="section-title">🚨 ОСОБО ОПАСНЫЕ ПРЕСТУПНИКИ 🚨</h2>
+        <div class="wanted-grid">
+            <div class="wanted-card">
+                <img class="wanted-img" src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=400&h=250&fit=crop&crop=center" alt="Бобр-преступник" onerror="this.style.background='linear-gradient(135deg, #92400e, #451a03)'; this.style.height='250px';">
+                <div class="wanted-info">
+                    <h3 class="wanted-name">ТИМОФЕЙ «ПЛОТИНЩИК»</h3>
+                    <p class="wanted-alias">Кличка: «Инженер», «Зубастый Барон»</p>
+                    <ul class="crimes-list">
+                        <li>Нелегальное строительство 47 плотин</li>
+                        <li>Массовая вырубка берёз без лицензии</li>
+                        <li>Организация подпольного бобрового синдиката</li>
+                        <li>Сопротивление при задержании (укусил агента)</li>
+                    </ul>
+                    <div class="danger-level">
+                        <span class="danger-label">Опасность:</span>
+                        <div class="danger-bar">
+                            <div class="danger-fill extreme"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wanted-card">
+                <img class="wanted-img" src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=400&h=250&fit=crop&crop=center" alt="Место преступления" onerror="this.style.background='linear-gradient(135deg, #166534, #052e16)'; this.style.height='250px';">
+                <div class="wanted-info">
+                    <h3 class="wanted-name">ЗИНКА «ХВОСТ»</h3>
+                    <p class="wanted-alias">Кличка: «Широкий Хвост», «Бетонный Бобр»</p>
+                    <ul class="crimes-list">
+                        <li>Затопление парка «Дубки» (8 дубов за ночь)</li>
+                        <li>Контрабанда осины через границу района</li>
+                        <li>Незаконное изменение русла реки</li>
+                        <li>Вербовка молодых бобрят в банду</li>
+                    </ul>
+                    <div class="danger-level">
+                        <span class="danger-label">Опасность:</span>
+                        <div class="danger-bar">
+                            <div class="danger-fill high"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="wanted-card">
+                <img class="wanted-img" src="https://images.unsplash.com/photo-1518495973542-4542c06a5843?w=400&h=250&fit=crop&crop=center" alt="Уничтоженное дерево" onerror="this.style.background='linear-gradient(135deg, #78350f, #451a03)'; this.style.height='250px';">
+                <div class="wanted-info">
+                    <h3 class="wanted-name">БОРИС «ДИНАМИТ»</h3>
+                    <p class="wanted-alias">Кличка: «Взрывной Зуб», «Грызун Судьбы»</p>
+                    <ul class="crimes-list">
+                        <li>Подрыв дамбы (утверждает, что «просто грыз»)</li>
+                        <li>Уничтожение 200 деревьев за одну зиму</li>
+                        <li>Терроризирование местных лесорубов</li>
+                        <li>Создание сети подземных тоннелей</li>
+                    </ul>
+                    <div class="danger-level">
+                        <span class="danger-label">Опасность:</span>
+                        <div class="danger-bar">
+                            <div class="danger-fill critical"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- News Section -->
+        <h2 class="section-title">📰 СВОДКА ПРОИСШЕСТВИЙ</h2>
+        <div class="news-section">
+            <div class="news-card">
+                <div class="news-date">15.01.2025 — СРОЧНО</div>
+                <h3 class="news-title">Банда бобров захватила пруд в Подмосковье!</h3>
+                <p class="news-text">Группа из 5 особо опасных бобров захватила городской пруд и отказывается покидать территорию. Местные утки эвакуированы. Бобры требуют «неограниченный доступ к осиновым рощам» в качестве условия для переговоров.</p>
+            </div>
+            <div class="news-card">
+                <div class="news-date">12.01.2025 — ПРОИСШЕСТВИЕ</div>
+                <h3 class="news-title">Обнаружена подземная бобровая база под городским парком!</h3>
+                <p class="news-text">При плановой проверке канализации обнаружена разветвлённая сеть тоннелей, принадлежащих бобровой организации. Изъяты: 300 кг коры, чертежи новых плотин и карта всех деревьев города с пометками «грызть».</p>
+            </div>
+            <div class="news-card">
+                <div class="news-date">08.01.2025 — ОПЕРАЦИЯ</div>
+                <h3 class="news-title">Спецоперация «Щелчок хвостом» провалилась!</h3>
+                <p class="news-text">Попытка захватить главаря бобровой мафии Тимофея «Плотинщика» закончилась провалом. Преступник скрылся под водой, оставив агентам лишь предупреждающий щелчок хвостом по воде. «Это было унизительно», — прокомментировал начальник операции.</p>
+            </div>
+            <div class="news-card">
+                <div class="news-date">03.01.2025 — УГРОЗА</div>
+                <h3 class="news-title">Бобры перехватили грузовик с пиломатериалами!</h3>
+                <p class="news-text">На трассе М-4 бобры-радикалы остановили грузовик с досками и потребовали от водителя «немедленно вернуть древесину законным владельцам». Грузчик заявил, что бобры выглядели «организованно и пугающе профессионально».</p>
+            </div>
+        </div>
+
+        <!-- Facts Section -->
+        <h2 class="section-title">🔬 ШОКИРУЮЩИЕ ФАКТЫ</h2>
+        <div class="facts-section">
+            <div class="facts-grid">
+                <div class="fact-card">
+                    <div class="fact-icon">🦷</div>
+                    <h4 class="fact-title">ОРУЖИЕ МАСШТАБА</h4>
+                    <p class="fact-text">Зубы бобра растут всю жизнь. Это значит, что ОНИ НИКОГДА НЕ ОСТАЮТСЯ БЕЗ ОРУЖИЯ. Каждый зуб — это потенциальная угроза для вашего забора.</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">🏗️</div>
+                    <h4 class="fact-title">ИНЖЕНЕРЫ ЗЛА</h4>
+                    <p class="fact-text">Бобровые плотины способны изменить русло реки. Представьте, что они сделают с вашими трубами. Мы все умрём от их инженерного гения.</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">🌊</div>
+                    <h4 class="fact-title">ВОДНЫЙ ТЕРРОР</h4>
+                    <p class="fact-text">Бобры могут задерживать дыхание на 15 минут. Это значит, они могут прятаться под водой и ждать. ЖДАТЬ ВАС. Они терпеливее, чем вы думаете.</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">👁️</div>
+                    <h4 class="fact-title">НОЧНЫЕ АГЕНТЫ</h4>
+                    <p class="fact-text">Бобры ведут ночной образ жизни. Пока вы спите, ОНИ ГРЫЗУТ. Каждую ночь. Без выходных. Без отпуска. Только грызут и строят заговор.</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">📡</div>
+                    <h4 class="fact-title">СВЯЗЬ ПОД ВОДОЙ</h4>
+                    <p class="fact-text">Щелчок хвостом по воде — это не просто звук. Это ЗАШИФРОВАННОЕ СООБЩЕНИЕ для других агентов. Они координируют атаки в реальном времени!</p>
+                </div>
+                <div class="fact-card">
+                    <div class="fact-icon">🧠</div>
+                    <h4 class="fact-title">КРАСНЫЙ МОЗГ</h4>
+                    <p class="fact-text">Мозг бобра имеет складки, похожие на человеческие. Не исключено, что они УМНЕЕ НАС. И прямо сейчас разрабатывают план мирового захвата через плотины.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Testimonials -->
+        <h2 class="section-title">💬 ПОКАЗАНИЯ ОЧЕВИДЦЕВ</h2>
+        <div class="testimonials">
+            <div class="testimonial-card">
+                <p class="testimonial-text">Я вышел утром проверить свой сад — а берёзы нет. Просто нет. И следы зубов повсюду. Сосед сказал, что слышал ночью какой-то шорох у реки. Я больше не сплю с открытыми окнами.</p>
+                <p class="testimonial-author">— Геннадий П., пострадавший, г. Бобруйск</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">Они смотрели на меня. Пять бобров. Из воды. Молча. Потом один щёлкнул хвостом и они все исчезли. На следующий день мой участок был затоплен. Это было предупреждение.</p>
+                <p class="testimonial-author">— Марина К., дачница, Подмосковье</p>
+            </div>
+            <div class="testimonial-card">
+                <p class="testimonial-text">Я работал лесником 30 лет. Думал, что знаю лес. Но бобры... они организованы. У них есть иерархия, план, дисциплина. Один бобр срезал дерево так, что оно упало ровно в сторону моей будки. СОВПАДЕНИЕ? НЕ ДУМАЮ.</p>
+                <p class="testimonial-author">— Виктор С., бывший лесник (уволился из-за «бобровой угрозы»)</p>
+            </div>
+        </div>
+
+        <!-- Hotline -->
+        <div class="hotline-section">
+            <h3 class="hotline-title">📞 АНОНИМНАЯ ГОРЯЧАЯ ЛИНИЯ</h3>
+            <div class="hotline-number">8-800-BEBR-NET</div>
+            <p class="hotline-desc">Заметили подозрительного бобра? Обнаружили свежую плотину? Дерево с подозрительными зубами? Звоните немедленно! Анонимность гарантирована (бобры не умеют пользоваться телефоном).</p>
+            <button class="hotline-btn" onclick="showModal()">🚨 СООБЩИТЬ О БОБРЕ</button>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p class="footer-text">
+            © 2025 Национальный Антибобровый Комитет (НАБК)<br>
+            Все деревья защищены. Бобры — нет.<br>
+            Лицензия на антибобровую деятельность №БОБЕР-0001
+        </p>
+        <div class="footer-disclaimer">
+            ⚠️ Дисклеймер: Это шуточный сайт. Бобры — замечательные животные, которые не являются террористами. Они просто очень старательно грызут деревья и строят плотины. Берегите бобров! 🦫❤️
+        </div>
+    </footer>
+
+    <!-- Floating Beaver -->
+    <div class="floating-beaver" onclick="showBeaverFacts()" title="Нажми на бобра!">
+        🦫
+    </div>
+
+    <!-- Modal -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal">
+            <button class="modal-close" onclick="closeModal()">✕</button>
+            <div class="beaver-ascii">🦫</div>
+            <h3 id="modal-title">ВЫ В ОПАСНОСТИ!</h3>
+            <p id="modal-text">Ближайший бобр может быть прямо сейчас за вашим углом. Не паникуйте, но проверьте все деревья в радиусе 500 метров на наличие подозрительных зубов.</p>
+            <button class="hotline-btn" onclick="closeModal()">ПОНЯЛ, БУДУ БДИТЕЛЬНЫМ</button>
+        </div>
+    </div>
+
+    <script>
+        // Counter animation
+        function animateCounters() {
+            const counters = document.querySelectorAll('.counter');
+            counters.forEach(counter => {
+                const target = parseInt(counter.getAttribute('data-target'));
+                const duration = 2000;
+                const step = target / (duration / 16);
+                let current = 0;
+
+                const updateCounter = () => {
+                    current += step;
+                    if (current < target) {
+                        counter.textContent = Math.floor(current).toLocaleString();
+                        requestAnimationFrame(updateCounter);
+                    } else {
+                        counter.textContent = target.toLocaleString();
+                    }
+                };
+                updateCounter();
+            });
+        }
+
+        // Intersection Observer for counters
+        const statsBar = document.querySelector('.stats-bar');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCounters();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        observer.observe(statsBar);
+
+        // Modal functions
+        const modalMessages = [
+            { title: "ТРЕВОГА!", text: "По нашим данным, бобр уже наблюдает за вами. Не оборачивайтесь резко. Медленно отойдите от ближайшего дерева." },
+            { title: "ВНИМАНИЕ!", text: "Ваше сообщение принято! Агент уже выехал на место. Ожидайте. И не подходите к воде ближе чем на 10 метров." },
+            { title: "ЗАПИСАНО!", text: "Ваше описание бобра добавлено в базу данных. Если вы заметили, что бобр тоже наблюдает за вами — немедленно звоните повторно!" },
+            { title: "ПОДТВЕРЖДЕНО!", text: "Ваш район подтверждён как зона повышенной бобровой активности. Рекомендация: обмотайте все деревья колючей проволокой." },
+            { title: "СЕКРЕТНАЯ ИНФОРМАЦИЯ!", text: "Бобры могут маскироваться под другие животные. Если вы видите «выдру», которая подозрительно много грызёт — это НЕ выдра. Звоните!" }
+        ];
+
+        function showModal() {
+            const modal = document.getElementById('modal');
+            const msg = modalMessages[Math.floor(Math.random() * modalMessages.length)];
+            document.getElementById('modal-title').textContent = msg.title;
+            document.getElementById('modal-text').textContent = msg.text;
+            modal.classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal').classList.remove('active');
+        }
+
+        // Beaver facts
+        const beaverFacts = [
+            "Бобр может свалить дерево диаметром 25 см за одну ночь! 🌳",
+            "Бобровые плотины — самые длинные сооружения, построенные животными! 🏗️",
+            "Зубы бобра содержат железо, поэтому они оранжевые! 🦷",
+            "Бобры — моногамны и живут семьями! ❤️",
+            "Хвост бобра служит рулём при плавании! 🏊",
+            "Бобры могут закрыть ноздри и уши под водой! 🤿",
+            "Детёныши бобров плавают уже через день после рождения! 👶",
+            "Бобры строят два входа в хатку — над и под водой! 🚪"
+        ];
+
+        let factIndex = 0;
+        function showBeaverFacts() {
+            const modal = document.getElementById('modal');
+            document.getElementById('modal-title').textContent = "🦫 РЕАЛЬНЫЙ ФАКТ О БОБРАХ";
+            document.getElementById('modal-text').textContent = beaverFacts[factIndex];
+            modal.classList.add('active');
+            factIndex = (factIndex + 1) % beaverFacts.length;
+        }
+
+        // Close modal on overlay click
+        document.getElementById('modal').addEventListener('click', function(e) {
+            if (e.target === this) closeModal();
+        });
+
+        // Close modal on Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') closeModal();
+        });
+
+        // Add some random "suspicious activity" alerts
+        const suspiciousActivities = [
+            "Подозрительная активность обнаружена у реки!",
+            "Новая плотина замечена в секторе 7!",
+            "Дерево #4587 помечено для уничтожения!",
+            "Бобровая разведка обнаружена в парке!",
+            "Пополнение запасов коры зафиксировано!"
+        ];
+
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                const msg = suspiciousActivities[Math.floor(Math.random() * suspiciousActivities.length)];
+                const notification = document.createElement('div');
+                notification.style.cssText = `
+                    position: fixed;
+                    top: 20px;
+                    left: 50%;
+                    transform: translateX(-50%);
+                    background: rgba(220, 38, 38, 0.9);
+                    color: white;
+                    padding: 12px 24px;
+                    border-radius: 8px;
+                    font-size: 13px;
+                    z-index: 999;
+                    animation: slideDown 0.3s ease;
+                    font-family: 'Inter', sans-serif;
+                    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+                `;
+                notification.textContent = '⚠️ ' + msg;
+                document.body.appendChild(notification);
+                setTimeout(() => {
+                    notification.style.opacity = '0';
+                    notification.style.transition = 'opacity 0.5s';
+                    setTimeout(() => notification.remove(), 500);
+                }, 3000);
+            }
+        }, 8000);
+
+        // Add slideDown animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideDown {
+                from { transform: translateX(-50%) translateY(-20px); opacity: 0; }
+                to { transform: translateX(-50%) translateY(0); opacity: 1; }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
